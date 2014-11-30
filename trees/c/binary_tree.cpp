@@ -34,7 +34,7 @@ class BinaryTree {
     }
     
     bool find(T value, BinaryTree<T>* a) {
-        if(value >= this->value && right) {
+        if(value > this->value && right) {
             return right->find(value, a);
         }
         else if(value < this->value && left) {
