@@ -16,21 +16,21 @@ class BinaryTree {
     void add(T value) {
         if(left && value < left->value) {
             left->add(value);
+            return;
         }
         else if(right && value > right->value) {
             right->add(value);
+            return;
+        }
+        else if(this->value < value) {
+            if(left) left->add(this->value);
+            else     left = new BinaryTree<T>(this->value);
         }
         else {
-            if(this->value < value) {
-                if(left) left->add(this->value);
-                else     left = new BinaryTree<T>(this->value);
-            }
-            else {
-                if(right) right->add(this->value);
-                else      right = new BinaryTree<T>(this->value);
-            }
-            this->value = value;
+            if(right) right->add(this->value);
+            else      right = new BinaryTree<T>(this->value);
         }
+        this->value = value;
     }
     
     bool find(T value, BinaryTree<T>* a) {
@@ -40,14 +40,12 @@ class BinaryTree {
         else if(value < this->value && left) {
             return left->find(value, a);
         }
+        else if(value == this->value) {
+            *a = *this;
+            return true;
+        }
         else {
-            if(value == this->value) {
-                *a = *this;
-                return true;
-            }
-            else {
-                return false;
-            }
+            return false;
         }
     }
  
